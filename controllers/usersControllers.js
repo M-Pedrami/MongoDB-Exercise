@@ -10,8 +10,15 @@ const getUsers = async (req, res) => {
   }
 };
 
-const createUser = (req, res) => {
-  res.send({ message: "User created" });
+const createUser = async (req, res) => {
+  const { email, name, age, phoneNumber, isActive  } = req.body;
+  try {
+    const user = await User.create({ email, name, age, phoneNumber, isActive });
+    res.status(201).json(user);
+  } catch (error) {
+    res.status(500).send({ message: "Oops...Something went wrong" });
+    console.log(error)
+  }
 };
 
 const updateUser = (req, res) => {
