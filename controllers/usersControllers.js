@@ -11,18 +11,28 @@ const getUsers = async (req, res) => {
 };
 
 const createUser = async (req, res) => {
-  const { email, name, age, phoneNumber, isActive  } = req.body;
+  const { email, name, age, phoneNumber, isActive } = req.body;
   try {
     const user = await User.create({ email, name, age, phoneNumber, isActive });
     res.status(201).json(user);
   } catch (error) {
     res.status(500).send({ message: "Oops...Something went wrong" });
-    console.log(error)
+    console.log(error);
   }
 };
 
-const updateUser = (req, res) => {
-  res.send({ message: `user with the id ${req.params.id} updated` });
+const updateUser = async (req, res) => {
+  const { email, name, age, phoneNumber, isActive } = req.body;
+  try {
+    const user = await User.findByIdAndUpdate(
+      { _id: "6568cf3ae204c97adc33fa31" },
+      { email, name, age, phoneNumber, isActive }
+    );
+    res.status(201).json({ user });
+  } catch (error) {
+    res.status(500).send({ message: "Oops...Something went wrong" });
+    console.log(error);
+  }
 };
 
 const deleteUser = (req, res) => {
